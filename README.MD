@@ -1,7 +1,7 @@
 # lan-ns
 
 LanNS is a web service that allows redirecting the public URL to the private IP address on a local area network.
-For example if you have a web service/site running on the computer at local are network, you can...
+
 
 ## Installation
 
@@ -78,7 +78,8 @@ which uses [request](https://github.com/request/request) module.
 #### With lan-ns-ticker
 
 Module [lan-ns-ticker](https://github.com/ollikekalainen/lan-ns-ticker/) can be used to 
-simplify the service running on local network notifying it's state to the Lan-NS service
+simplify the service running on local network notifying it's state to the Lan-NS service.
+The module sends a pulse request to the LanNS service at desired intervals.
 
     const Ticker = require("lan-ns-ticker");
     new Ticker({
