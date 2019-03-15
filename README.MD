@@ -83,7 +83,7 @@ The module sends a pulse request to the LanNS service at desired intervals.
 
     const Ticker = require("lan-ns-ticker");
     new Ticker({
-        url: "https://www.mysite.com:3003",
+        url: "https://www.mylannsservice.net:3003",
         appName: "Musa",
         appDescription: "Musa Music Player",
         appPort: 3001,
@@ -103,7 +103,7 @@ Following code example demonstrates how to send pulse request to LanNS service. 
 installation of [request](https://github.com/request/request) module.
 
     pulse( (error) => { console.log(error);}, () => ( console.log("One hit!");), {
-        url: "https://www.mysite.com:3003",
+        url: "https://www.mylannsservice.net:3003",
         appName: "Musa",
         appDescription: "Musa Music Player",
         appPort: 3001,
