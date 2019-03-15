@@ -1,0 +1,29 @@
+{
+  "main": "server/LanNS.js",
+  "name": "lan-ns",
+  "version": "1.0.0",
+  "description": "Web service to facilitate redirection of public URL to private IP address of local network",
+  "dependencies": {
+  },
+  "scripts": {
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "bugs": "https://github.com/ollikekalainen/lan-ns/issues",
+  "keywords": [
+    "javascript",
+    "redirect",
+    "private ip",
+    "LAN",
+    "local network",
+    "web service"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ollikekalainen/lan-ns.git"
+  },
+  "homepage": "https://github.com/ollikekalainen/lan-ns",
+  "author": "Olli Kekäläinen",
+  "license": "MIT"
+}

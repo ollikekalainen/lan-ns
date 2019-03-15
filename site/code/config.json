@@ -1,0 +1,10 @@
+{
+	"source": {	
+		"basic": [
+			"api.js",
+			"app.js",
+			"LanNS.css",
+			"LanNS.htm"
+		]
+	}
+}

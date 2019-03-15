@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "node LanNS.js", 0
