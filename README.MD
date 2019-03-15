@@ -12,14 +12,14 @@ npm install lan-ns
 
 ### Starting LanNS Service
 
-#### Start syntax
+#### Syntax
 
       	  
-	lanns.start( onError, onSuccess, options );
+    lanns.start( onError, onSuccess, options );
         
-    	onError        function(error)
-    	onSuccess      function()
-    	options        object
+        onError       function(error)
+        onSuccess     function()
+        options       object
                        
         
 #### Options
@@ -57,9 +57,9 @@ npm install lan-ns
 #### Example
 
     require("lan-ns").start(
-	    (error)=>{ console.log(error);},
-	    ()=>{ console.log("LanNS started");},
-	    {
+        (error)=>{ console.log(error);},
+        ()=>{ console.log("LanNS started");},
+        {
             logFolder: __dirname + "/log",
             pulseFolder: __dirname,
             optionsFile: __dirname + "/options.json"
@@ -71,112 +71,116 @@ npm install lan-ns
 
 Web service on your local network is supposed to notify LanNS service in a proper interval that 
 it is up and running and available for the client on the same local network. Notification is made
-with LanNS pulse request. It can be done either with the lan-ns-ticker or with following code
-which uses request module.
+with LanNS pulse request. It can be done either with the 
+[lan-ns-ticker](https://github.com/ollikekalainen/lan-ns-ticker/) or with following code
+which uses [request](https://github.com/request/request) module.
 
 
 #### With lan-ns-ticker
 
-Application [lan-ns-ticker](https://github.com/ollikekalainen/lan-ns-ticker/) can be used to 
+Module [lan-ns-ticker](https://github.com/ollikekalainen/lan-ns-ticker/) can be used to 
 simplify the service running on local network notifying it's state to the Lan-NS service
 
-	const Ticker = require("lan-ns-ticker");
-	new Ticker({
-		url: "https://www.mysite.com:3003",
-		appName: "Musa",
-		appDescription: "Musa Music Player",
-		appPort: 3001,
-		appProtocol: "http",
-		appUrlPath: "",
-		refreshIntervalInSeconds: 60,
-		expireTimeInSeconds: 180
-	}).start( 
-		( error ) => { console.log( error ); },
-		() => { console.log("LanNS Ticker started"); }
-	);
+    const Ticker = require("lan-ns-ticker");
+    new Ticker({
+        url: "https://www.mysite.com:3003",
+        appName: "Musa",
+        appDescription: "Musa Music Player",
+        appPort: 3001,
+        appProtocol: "http",
+        appUrlPath: "",
+        refreshIntervalInSeconds: 60,
+        expireTimeInSeconds: 180
+    }).start( 
+        ( error ) => { console.log( error ); },
+        () => { console.log("LanNS Ticker started"); }
+    );
 
 
 #### With request
 
-	pulse( (error) => { console.log(error);}, () => ( console.log("One hit!");), {
-		url: "https://www.mysite.com:3003",
-		appName: "Musa",
-		appDescription: "Musa Music Player",
-		appPort: 3001,
-		appProtocol: "http",
-		appUrlPath: "",
-		refreshIntervalInSeconds: 60,
-		expireTimeInSeconds: 180
-	});
+Following code example demonstrates how to send pulse request to LanNS service. It requires
+installation of [request](https://github.com/request/request) module.
+
+    pulse( (error) => { console.log(error);}, () => ( console.log("One hit!");), {
+        url: "https://www.mysite.com:3003",
+        appName: "Musa",
+        appDescription: "Musa Music Player",
+        appPort: 3001,
+        appProtocol: "http",
+        appUrlPath: "",
+        refreshIntervalInSeconds: 60,
+        expireTimeInSeconds: 180
+    });
      
-	function pulse( onError, onSuccess, params ) {
-		const request = require("request");
-		const os = require("os");
-		let body = {
-			name: "pulse",
-			parameters: {
-				appname: params.appName,
-				description: params.appDescription,
-				expiretimeinseconds: params.expireTimeInSeconds,
-				hostname: os.hostname(),
-				port: params.appPort,
-				urlpath: params.appUrlPath,
-				protocol: params.appProtocol,
-				port: params.appPort,
-				privateip: getPrivateIp() 
-			}
-		};
-		try {
-			body = JSON.stringify(body);
-			request.post( 
-				{
-					url: params.url + "/api",
-					body: body,
-					headers: {
-						"User-Agent": "LanNS Client",
-					 	"Content-Type": "text/plain",
-						"Content-Length": body.length
-					},
-					timeout: 20000,
-					jar: true,
-					followAllRedirects: true,
-					followOriginalHttpMethod: true
-				}, 
-				( error, response, body ) => {
-					if (!error) {
-			        	try {
-			            	const json = JSON.parse(body);
-			            	if (json.succeed === false) {
-			            		onError(json.error);
-			            	}
-			            	else {
-			            		onSuccess();
-			                }
-			            }
-			            catch (error) {
-			            	onError(error);
-			            }
-					}
-					else {
-						onError( "Problem with pulse: " + error.message );
-					}
-				}
-			);
-		}
-		catch (error) {
-			onError(error);
-		}
+    function pulse( onError, onSuccess, params ) {
+        const request = require("request");
+        const os = require("os");
+        let body = {
+            name: "pulse",
+            parameters: {
+                appname: params.appName,
+                description: params.appDescription,
+                expiretimeinseconds: params.expireTimeInSeconds,
+                hostname: os.hostname(),
+                port: params.appPort,
+                urlpath: params.appUrlPath,
+                protocol: params.appProtocol,
+                port: params.appPort,
+                privateip: getPrivateIp() 
+            }
+        };
+        try {
+            body = JSON.stringify(body);
+            request.post( 
+                {
+                    url: params.url + "/api",
+                    body: body,
+                    headers: {
+                        "User-Agent": "LanNS Client",
+                         "Content-Type": "text/plain",
+                        "Content-Length": body.length
+                    },
+                    timeout: 20000,
+                    jar: true,
+                    followAllRedirects: true,
+                    followOriginalHttpMethod: true
+                }, 
+                ( error, response, body ) => {
+                    if (!error) {
+                        try {
+                            const json = JSON.parse(body);
+                            if (json.succeed === false) {
+                                onError(json.error);
+                            }
+                            else {
+                                onSuccess();
+                            }
+                        }
+                        catch (error) {
+                            onError(error);
+                        }
+                    }
+                    else {
+                        onError( "Problem with pulse: " + error.message );
+                    }
+                }
+            );
+        }
+        catch (error) {
+            onError(error);
+        }
           
-		function getPrivateIp() {
-		    for (let addresses of Object.values( os.networkInterfaces())) {
-		        for (let add of addresses) {
-		            if(add.address.startsWith("192.168.")) {
-		                return add.address;
-		            }
-		        }
-		    }
-		}
-	}
+        function getPrivateIp() {
+            for (let addresses of Object.values( os.networkInterfaces())) {
+                for (let add of addresses) {
+                    if(add.address.startsWith("192.168.")) {
+                        return add.address;
+                    }
+                }
+            }
+        }
+    }
            
 
 
@@ -192,12 +196,12 @@ worksation hostname.
 
 LanNS site url accepts two query string parameters:
 
-	appfilter 		app name or comma separated list of app names
-	autoredirect  	valid only if appfilter contains only one application, values are
-						first: client is redirected automatically to a service on the first
-						        of the worksations up and running
-						loner: client is redirected automatically to a service when only 
-								one worksation is up and running
+    appfilter       app name or comma separated list of app names
+    autoredirect    valid only if appfilter contains only one application, values are
+                        first: client is redirected automatically to a service on the first
+                               of the worksations up and running
+                        loner: client is redirected automatically to a service when only 
+                               one worksation is up and running
 
 
 #### Site Considerations
@@ -208,74 +212,74 @@ following html code. According the example the url address easier to write like 
 redirected to _http://www.mylannsservice.net:3001?appfilter=musa&autoredirect=loner_.
 
 
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-		</head>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+        </head>
        
-		<script>
-			window.location.href = "http://www.mylannsservice.net:3001?appfilter=musa&autoredirect=loner";
-		</script>
-		
-		<body>
-		</body>
-	</html>
+        <script>
+            window.location.href = "http://www.mylannsservice.net:3001?appfilter=musa&autoredirect=loner";
+        </script>
+        
+        <body>
+        </body>
+    </html>
 
 
 ## API
 
 ### Api Http Request
 
-	Request Method: POST
-	Content-Type: text/plain
-	Request Payload: '{ "name": <requestMessageName>, "parameters":{ <parameters..> }}'
+    Request Method: POST
+    Content-Type: text/plain
+    Request Payload: '{ "name": <requestMessageName>, "parameters":{ <parameters..> }}'
 
 ### Response Format
 
-	All outputs follow the same general JSON structure.
+    All outputs follow the same general JSON structure.
         
-	    In case of success:
-		    {
-			    "succeed": true,
-			    "content": <string|number|boolean|object>,
+        In case of success:
+            {
+                "succeed": true,
+                "content": <string|number|boolean|object>,
                 "requestName": <string>,
                 "elapsed": <number>
-		    }
+            }
             
-	    In case of error:
-		    {
-			    "succeed": false,
+        In case of error:
+            {
+                "succeed": false,
                 "requestName": <string>,
-			    "error": { "code": <string>, "message": <string> },
+                "error": { "code": <string>, "message": <string> },
                 "elapsed": <number>
-		    }
+            }
 
 ### Request Messages
 
 #### getAppNames
 
-	Parameters
-	   none
-	 
-	Response content
-	   Array of Application names as strings
+    Parameters
+       none
+     
+    Response content
+       Array of Application names as strings
 
 
 #### getConfig
 
-	Parameters
-	    none
+    Parameters
+        none
         
-	Response content
-	    {} 
-	       --or--
-	    { apiUrl: string } when LanNS service also SSL port is present 
+    Response content
+        {} 
+           --or--
+        { apiUrl: string } when LanNS service also SSL port is present 
 
 
 #### pulse
 
-	Parameters
+    Parameters
         appname: string
         description: string,          // default: ""
         expiretimeinseconds: number,  // default: 300
@@ -285,23 +289,23 @@ redirected to _http://www.mylannsservice.net:3001?appfilter=musa&autoredirect=lo
         protocol: string,             // default: "http"
         urlpath: string               // default: ""
         
-	Response content
-		empty string
+    Response content
+        empty string
 
 
 #### retrieve
 
-	Parameters
+    Parameters
         appname   string
       
-	Response content
-		{
-		    appname: string,
+    Response content
+        {
+            appname: string,
             description: string,
             hostname: string,
             port: number,
             privateip: string,
             protocol: string,
             urlpath: string
-		}
+        }
 
