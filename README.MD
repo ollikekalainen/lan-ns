@@ -16,7 +16,6 @@ npm install lan-ns
 
       	  
     lanns.start( onError, onSuccess, options );
-        
         onError       function(error)
         onSuccess     function()
         options       object
@@ -27,15 +26,15 @@ npm install lan-ns
     port                number, mandatory, default: 3002
     sslPort             number, default: 0
     httpsOptions        object, 
-        {
-        	pfx: string,           // default: "%LANNS_PFX%"
-        	passphrase: string     // default "%LANNS_PHRASE%"
-        }
-           --or-- 
-        {
-             key: string,
-             cert: string
-        }
+                            {
+        	                    pfx: string,           // default: "%LANNS_PFX%"
+        	                 	passphrase: string     // default "%LANNS_PHRASE%"
+        	                 }
+        	                    --or-- 
+        	                 {
+        	                      key: string,
+        	                      cert: string
+        	                 }
     siteRoot            string, default: "<node_modules>/lan-ns/site"
     dataFolder          string, default: "/LanNS-data"
     defaultDocument     string, default: "index.htm"
@@ -44,13 +43,13 @@ npm install lan-ns
     logFolder           string, if assigned the output of the console.log() calls are redirected 
                             into log files on the folder indicated by logFolder
     pulseFolder         string, default: __dirname
-    optionsFile         string, a JSON file where options are read from; options passed as
-                            start method parameter are overwriting options in this file
+    optionsFile         string, a JSON file where options are read from; options in this file are 
+                            overwritten by the options passed as start method options parameter
      
      
-    Any of the option values can be set as environment variable name surrounded by % character.
-    Variable name are automatically replaced by the corresponding environment variable value.
 
+Any of the option values can be set as environment variable name surrounded by % character.
+Variable name are automatically replaced by the corresponding environment variable value.
 
 
 
@@ -274,7 +273,7 @@ redirected to _http://www.mylannsservice.net:3001?appfilter=musa&autoredirect=lo
     Response content
         {} 
            --or--
-        { apiUrl: string } when LanNS service also SSL port is present 
+        { apiUrl: <string> } when LanNS service  SSL port is present 
 
 
 #### pulse
