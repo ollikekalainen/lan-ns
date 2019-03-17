@@ -31,7 +31,7 @@
 	
 
 
- 20190315
+ 20190317
 -----------------------------------------------------------------------------------------
 */
 (() => {
@@ -42,14 +42,15 @@
 
 	let API;
 
-	api.get = function( onError, onSuccess ) {
-		API ? onSuccess(API) : (API = new Api( onError, onSuccess ));
+	api.get = function( onError, onSuccess, params ) {
+		API ? onSuccess(API) : (API = new Api( onError, onSuccess, params ));
 	};
 
 	class Api {
 
-		constructor( onError, onSuccess ) {
+		constructor( onError, onSuccess, params = {}) {
 			API = this;
+			params.root && (this.root = params.root);
 			this.__initInterfase( onError, onSuccess );
 		}
 
@@ -72,7 +73,8 @@
 		}
 
 		get url() {
-			return this.__url ? this.__url :  location.protocol + "//" + location.host + "/api";
+			// return this.__url ? this.__url :  location.protocol + "//" + location.host + "/api";
+			return this.__url ? this.__url :  this.root + "api";
 		}
 
 		set url(url) {

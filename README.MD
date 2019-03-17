@@ -226,6 +226,19 @@ redirected to _http://www.mylannsservice.net:3001?appfilter=musa&autoredirect=lo
         </body>
     </html>
 
+An alternate way to simplify LanNS site url is to write the follogin index.htm.
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="http://www.mylannsservice.net:3001/code/LanNS.js?appfilter=musa&autoredirect=loner"></script>
+        </head>
+         
+        <body>
+        </body>
+    </html>
+
 
 ## API
 

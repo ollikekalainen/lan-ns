@@ -8,7 +8,7 @@
 	
 
 
- 20190315
+ 20190317
 -----------------------------------------------------------------------------------------
 */
 ((global) => {
@@ -30,7 +30,7 @@
 	function start() {
 		const q = helper.queue();
 		q.add(
-			() => {	namespace("api").get( handleError, q.next() );},
+			() => {	namespace("api").get( handleError, q.next(), { root: getApiRoot() });},
 			(api) => { 
 				API = api;
 				API.getConfig( handleError, q.next());
@@ -38,7 +38,10 @@
 			(serverConfig) => {
 				const params = { 
 					config: CONFIG,
-					serverConfig: serverConfig
+					serverConfig: serverConfig,
+					root: ROOT,
+					autoredirect: QUERYPARAMS.autoredirect,
+					appfilter: QUERYPARAMS.appfilter
 				};
 				namespace("app").get( handleError, q.next(), params );
 			},
@@ -66,6 +69,8 @@
 	function solveQueryString() {
 		let qs = helper.parseQuery( helper.getScriptQueryString("LanNS.js"));
 		QUERYPARAMS.mode = (qs.mode||"complete").toLowerCase();
+		QUERYPARAMS.autoredirect = qs.autoredirect||undefined;
+		QUERYPARAMS.appfilter = qs.appfilter||undefined;
 	}
 
 	function scriptToPageHeader( onError, onSuccess, source ) {
@@ -107,8 +112,13 @@
 	function getCurrentScriptPath() {
 		let source = document.currentScript.src;
 		source = source.substr( 0, source.lastIndexOf('/'));
-		source = source.split("/").slice(3).join("/");
+		//source = source.split("/").slice(3).join("/");
 		return source;
+	}
+
+	function getApiRoot() {
+		let apiroot = ROOT.split("/");
+		return apiroot.slice(0,apiroot.length-2).join("/") + "/";
 	}
 
 	function configRead( onError, onSuccess ) {

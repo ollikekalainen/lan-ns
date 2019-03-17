@@ -11,7 +11,7 @@
 	
 
 
- 20190315
+ 20190317
 -----------------------------------------------------------------------------------------
 */
 (() => {
@@ -32,18 +32,20 @@
 		constructor( params ) {
 			this.config = params.config||{};
 			this.serverConfig = params.serverConfig||{};
+			this.root = params.root;
 			this.qs = helper.parseQuery(location.search);
 			this.id = "lanns-app";
 			this.appCount = 0;
 			this.serviceCount = 0;
 			// in effect when there is available only one service (loner)
 			// or one application and several services (first)
-			this.autoRedirect = this.solveAutoRedirect();
-			this.appfilter = this.qs.appfilter ? this.qs.appfilter.split(",") : [];
+			this.autoredirect = this.solveAutoRedirect(params.autoredirect);
+			this.appfilter = params.appfilter||this.qs.appfilter;
+			this.appfilter = this.appfilter ? this.appfilter.split(",") : [];
 		}
 
-		solveAutoRedirect() {
-			let ar = (this.qs.autoredirect||"none").toLowerCase();
+		solveAutoRedirect(autoredirect) {
+			let ar = (autoredirect||this.qs.autoredirect||"none").toLowerCase();
 			return ["loner","first"].indexOf(ar)<0 ? "none" : ar;
 
 		}
@@ -93,8 +95,8 @@
 						);
 					}
 					else if (this.appfilter.length == 1) {
-						if ((this.autoRedirect == "loner" && this.serviceCount == 1) 
-							|| this.autoRedirect == "first") {
+						if ((this.autoredirect == "loner" && this.serviceCount == 1) 
+							|| this.autoredirect == "first") {
 							setTimeout(() => { this.redirect( $("#service1"));}, 200 );
 						}
 						else {
