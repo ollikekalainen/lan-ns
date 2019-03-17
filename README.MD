@@ -226,7 +226,7 @@ redirected to _http://www.mylannsservice.net:3001?appfilter=musa&autoredirect=lo
         </body>
     </html>
 
-An alternate way to simplify LanNS site url is to write the follogin index.htm.
+An alternate way to simplify LanNS site url is to write the following index.htm for the site.
 
     <!DOCTYPE html>
     <html>
