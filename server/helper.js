@@ -838,8 +838,11 @@ class Pulse {
 	start( onError, onSuccess ) {
 		if (!this.timer) {
 			this.timer = setInterval( () => { this.write( onError ); }, this.interval );
+			this.write( onError, onSuccess );
 		}
-		onSuccess && onSuccess();
+		else {
+			onSuccess && onSuccess();
+		}
 	}
 
 	stop() {
