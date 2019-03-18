@@ -91,10 +91,7 @@ The module sends a pulse request to the LanNS service at desired intervals.
         appUrlPath: "",
         refreshIntervalInSeconds: 60,
         expireTimeInSeconds: 180
-    }).start( 
-        ( error ) => { console.log( error ); },
-        () => { console.log("LanNS Ticker started"); }
-    );
+    }).start(( error ) => { console.log( error ); });
 
 
 #### With request
