@@ -269,6 +269,9 @@ An alternate way to simplify LanNS site url is to write the following index.htm 
 
 #### getAppNames
 
+Retrieves the application names of the services that are notified to be running with the *pulse* 
+request from the same public IP address. The LanNS site used to redirection uses this request.
+
     Parameters
        none
      
@@ -277,6 +280,10 @@ An alternate way to simplify LanNS site url is to write the following index.htm 
 
 
 #### getConfig
+
+Get the LanNS service's configuration information. The LanNS site used to redirection uses 
+this request to determine if the site supports the https protocol. If it supports, the site 
+uses the https protocol for further requests.
 
     Parameters
         none
@@ -288,6 +295,8 @@ An alternate way to simplify LanNS site url is to write the following index.htm 
 
 
 #### pulse
+
+Local services are supposed to use this request to declare that they are up and running.
 
     Parameters
         appname: string
@@ -305,17 +314,32 @@ An alternate way to simplify LanNS site url is to write the following index.htm 
 
 #### retrieve
 
+Retrieves the information of the local services reported by the pulse requests. 
+The LanNS site uses this request to obtain the information needed for redirection.
+
     Parameters
         appname   string
       
     Response content
-        {
-            appname: string,
-            description: string,
-            hostname: string,
-            port: number,
-            privateip: string,
-            protocol: string,
-            urlpath: string
-        }
+        [
+            {
+                appname: string,
+                description: string,
+                hostname: string,
+                port: number,
+                privateip: string,
+                protocol: string,
+                urlpath: string
+            },
+            ...,
+            {
+                appname: string,
+                description: string,
+                hostname: string,
+                port: number,
+                privateip: string,
+                protocol: string,
+                urlpath: string
+            }
+        ]
 
