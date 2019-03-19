@@ -1,6 +1,6 @@
 # lan-ns
 
-LanNS is a web service that allows redirecting the public URL to the private IP address on a local area network.
+LanNS is a web service that eases redirecting the public URL to the private IP address on a local area network.
 
 
 ## Installation
@@ -195,11 +195,10 @@ LanNS site url accepts two query string parameters:
 
     appfilter       app name or comma separated list of app names
     autoredirect    valid only if appfilter contains only one application, values are
-                        first: client is redirected automatically to a service on the first
-                               of the worksations up and running
-                        loner: client is redirected automatically to a service when only 
-                               one worksation is up and running
-
+                        first: the client is redirected automatically to the first service 
+                               that is currently running
+                        loner: the client is automatically redirected to the only service 
+                               currently in operation
 
 #### Site Considerations
 
