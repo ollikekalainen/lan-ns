@@ -126,7 +126,7 @@ helper.folderEnsure = function ( onError, onSuccess, folder ) {
 helper.folderEvalEx = function ( onError, onSuccess, onEach, path, options ) {
 	options = options||{};
 	options.exclude = options.exclude||{};
-	var exclude = options.exclude;
+	let exclude = options.exclude;
 	fs.readdir( 
 		path, 
 		( error, files ) => {
@@ -149,7 +149,7 @@ helper.folderEvalEx = function ( onError, onSuccess, onEach, path, options ) {
 	);
 
 	function evalFiles( path, files, onEach ) {
-		var stat, i,fullname;
+		let stat, i,fullname;
 		for (i = 0; i < files.length; i++) {
 			fullname = path + "\\" + files[i];
 			try {
