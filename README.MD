@@ -268,7 +268,7 @@ An alternate way to simplify LanNS site url is to write the following index.htm 
 
 #### getAppNames
 
-Retrieves the application names of the services that are notified to be running with the *pulse* 
+Retrieves the application names of the services that are notified to be running with the **pulse** 
 request from the same public IP address. The LanNS site used to redirection uses this request.
 
     Parameters
@@ -313,7 +313,7 @@ Local services are supposed to use this request to declare that they are up and 
 
 #### retrieve
 
-Retrieves the information of the local services reported by the pulse requests. 
+Retrieves the information of the local services reported by the **pulse** requests. 
 The LanNS site uses this request to obtain the information needed for redirection.
 
     Parameters
