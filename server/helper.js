@@ -129,7 +129,7 @@ helper.folderEvalEx = function ( onError, onSuccess, onEach, path, options ) {
 	var exclude = options.exclude;
 	fs.readdir( 
 		path, 
-		function onReadDir( error, files ) {
+		( error, files ) => {
 			if (error) {
 				onError(
 					helper.newError(
