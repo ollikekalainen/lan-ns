@@ -183,7 +183,7 @@ installation of [request](https://github.com/request/request) module.
 
 ### LanNS Site
 
-LanNS default site uses LanNS API, especially _getAppNames_ and _retrieve_ requests 
+LanNS default site uses LanNS API, especially **getAppNames** and **retrieve** requests 
 for showing all services running on the same local network where the site is visited from. By
 default services are grouped by application names and the links to services are displayed as
 worksation hostname.
