@@ -106,7 +106,9 @@ class Server {
 					const options = {};
 				    if (this.options.httpsOptions.pfx) {
 				    	options.pfx = fs.readFileSync(this.options.httpsOptions.pfx);
-				    	options.passphrase = this.options.httpsOptions.passphrase;
+						options.passphrase = __exists(this.options.httpsOptions.passphrase) 
+							? fs.readFileSync(this.options.httpsOptions.passphrase)
+							: this.options.httpsOptions.passphrase;
 				    }
 				    else {
 				    	options.key = fs.readFileSync(this.options.httpsOptions.key);
@@ -433,4 +435,14 @@ module.exports = Server;
 
 function __decodeURI(uri) {
 	return decodeURI(uri.replace( /%23/g, "#" ));
+}
+
+function __exists(folder) {
+	let exists = true;
+	try {
+		fs.statSync(folder);
+	} catch(error) {
+		exists = false;
+	}
+	return exists;
 }
