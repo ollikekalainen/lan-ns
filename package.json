@@ -1,7 +1,7 @@
 {
   "main": "server/LanNS.js",
   "name": "lan-ns",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web service to facilitate redirection of public URL to private IP address of local network",
   "dependencies": {
   },
