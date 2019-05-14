@@ -27,14 +27,14 @@ npm install lan-ns
     sslPort             number, default: 0
     httpsOptions        object, 
                             {
-        	                    pfx: string,           // default: "%LANNS_PFX%"
-        	                 	passphrase: string     // default "%LANNS_PHRASE%"
-        	                 }
-        	                    --or-- 
-        	                 {
-        	                      key: string,
-        	                      cert: string
-        	                 }
+                                pfx: string,           // default: "%LANNS_PFX%"
+                                passphrase: string     // default "%LANNS_PHRASE%"
+                            }
+                                --or-- 
+                            {
+                                key: string,
+                                cert: string
+                            }
     siteRoot            string, default: "<node_modules>/lan-ns/site"
     dataFolder          string, default: "/LanNS-data"
     defaultDocument     string, default: "index.htm"
@@ -50,6 +50,9 @@ npm install lan-ns
 
 Any of the option values can be set as environment variable name surrounded by % character.
 Variable name are automatically replaced by the corresponding environment variable value.
+
+The value of the *httpsOptions.passphrase* property may include - instead of a password - 
+the name of the file that contains the actual password.
 
 
 
